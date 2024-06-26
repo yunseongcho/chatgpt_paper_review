@@ -31,7 +31,6 @@ class ChatGPTAutomation:
         self.launch_chrome_with_remote_debugging(free_port, self.url)
         self.wait_for_human_verification()
         self.driver = self.setup_webdriver(free_port)
-        # self.cookie = self.get_cookie()
 
     @staticmethod
     def find_available_port():
@@ -64,14 +63,6 @@ class ChatGPTAutomation:
         driver = webdriver.Chrome(options=chrome_options)
         return driver
 
-    def get_cookie(self):
-        """
-        Get chat.openai.com cookie from the running chrome instance.
-        """
-        cookies = self.driver.get_cookies()
-        cookie = [elem for elem in cookies if elem["name"] == '__Secure-next-auth.session-token'][0]['value']
-        return cookie
-
     def send_prompt_to_chatgpt(self, prompt):
         """ Sends a message to ChatGPT and waits for 20 seconds for the response """
 
@@ -82,21 +73,6 @@ class ChatGPTAutomation:
         input_box.send_keys(Keys.RETURN)
         input_box.submit()
         self.check_response_ended()
-
-    
-    '''
-    def check_response_ended(self):
-        """ Checks if ChatGPT response ended """
-        start_time = time.time()
-        
-        while len(self.driver.find_elements(by=By.CSS_SELECTOR, value='div.text-base')[-1].find_elements(
-                by=By.CSS_SELECTOR, value='button.text-token-text-tertiary')) < 1:
-            time.sleep(0.5)
-            # Exit the while loop after 90 seconds anyway
-            if time.time() - start_time > 90:
-                break
-        time.sleep(1)  # the length should be =4, so it's better to wait a moment to be sure it's really finished
-    '''
 
     def check_response_ended(self):
         last_height = self.driver.execute_script("return document.body.scrollHeight")
@@ -120,41 +96,12 @@ class ChatGPTAutomation:
                     break
             
             last_height = new_height
-            
+
+            # 시작 후 90초 경과 시 무조건 pass            
             if time.time() - start_time > 90:
                 break
             
         time.sleep(1)
-
-    def return_chatgpt_conversation(self):
-        """
-        :return: returns a list of items, even items are the submitted questions (prompts) and odd items are chatgpt response
-        """
-
-        return self.driver.find_elements(by=By.CSS_SELECTOR, value='div.text-base')
-
-    def save_conversation(self, file_name):
-        """
-        It saves the full chatgpt conversation of the tab open in chrome into a text file, with the following format:
-            prompt: ...
-            response: ...
-            delimiter
-            prompt: ...
-            response: ...
-
-        :param file_name: name of the file where you want to save
-        """
-
-        directory_name = "conversations"
-        if not os.path.exists(directory_name):
-            os.makedirs(directory_name)
-
-        delimiter = "|^_^|"
-        chatgpt_conversation = self.return_chatgpt_conversation()
-        with open(os.path.join(directory_name, file_name), "a") as file:
-            for i in range(0, len(chatgpt_conversation), 2):
-                file.write(
-                    f"prompt: {chatgpt_conversation[i].text}\nresponse: {chatgpt_conversation[i + 1].text}\n\n{delimiter}\n\n")
 
     def continue_response(self):
         for i in range(2):
@@ -191,34 +138,36 @@ class ChatGPTAutomation:
                 except:
                     print(f"{i}th limit_check")
                     continue
-                
-            isnotlimited = input("리미트가 해제되었나요? (y/n): ")
-            if isnotlimited.lower()=="y":
-                buttons = self.driver.find_elements(By.CSS_SELECTOR, 'button.btn.relative.btn-primary.m-auto')
-                buttons[-1].click()
-                time.sleep(5)
+            
+            if input("메시지 리미트 문제인가요? (y/n): ").lower()=="y":
+                if input("리미트가 해제되었나요? (y/n): ").lower()=="y":
+                    buttons = self.driver.find_elements(By.CSS_SELECTOR, 'button.btn.relative.btn-primary.m-auto')
+                    buttons[-1].click()
+                    time.sleep(5)
+                    self.check_response_ended()
+            else:
+                # 리미트 문제가 아닌 경우 답변을 기다리고 넘어간다.
                 self.check_response_ended()
+                break
             
 
     def return_last_response(self):
         """ :return: the text of the last chatgpt response """
 
-        '''
-        response_elements = self.driver.find_elements(by=By.CSS_SELECTOR, value='div.text-base')
-        return response_elements[-1].text
-        '''
-        
+        # chatgpt limit에 도달하였는지 체크한다.        
         self.check_limit()
         
+        # 답변이 길어지는 경우 계속 버튼을 누른다.
         while True:
             if self.continue_response():
-                break            
+                break
         
         for i in range(3):
             for j in range(3):
                 self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
                 time.sleep(1)
             try:
+                # 복사버튼을 누른다.
                 buttons = self.driver.find_elements(By.CSS_SELECTOR, 'button.rounded-lg.text-token-text-secondary.hover\\:bg-token-main-surface-secondary')
                 buttons[-3].click()
                 break
