@@ -1,3 +1,20 @@
+https://github.com/Michelangelo27/chatgpt_selenium_automation.git 를 참조하여 만들었습니다.
+
+# Guide
+본 코드는 ChatGPT plus를 사용자, Mac OS 사용자 기준으로 작성되었습니다.
+
+1. `mkdir outputs` 로 output 폴더를 만들어줍니다.
+2. `python paper_review.py` 를 실행시킵니다.
+3. 새로 뜨는 Chrome 창에 로그인 해주세요.
+4. 논문 pdf 파일을 업로드 해주세요.
+5. 커맨드 창에 "y" 를 입력합니다.
+6. 논문 제목을 입력하라는 문구가 나옵니다. YYMM_Journal_Paper title 의 형식으로 입력해줍니다.  
+   ex) 1412_NIPS_Generative Adversarial Nets
+7. GPT에 `prompt.py` 에 넣어놓은 프롬프트들이 자동으로 입력되며 답변을 `outputs` 폴더 내에 저장합니다.
+8. 계속해서 다음 논문을 입력하시려면 "계속하시겠습니까?" 에 y를 입력으로 넣어주시고 4번부터 반복하시면 됩니다.
+
+
+
 # chatgpt_selenium_automation
 
 ChatGPT Automation is a Python project that aims to automate interactions with OpenAI's ChatGPT using Selenium WebDriver. Currently, it requires human interaction for log-in and human verification. It handles launching Chrome, connecting to ChatGPT, sending prompts, and retrieving responses. This tool can be useful for experimenting with ChatGPT or building similar web automation tools.
