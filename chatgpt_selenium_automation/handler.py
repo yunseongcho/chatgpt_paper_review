@@ -187,6 +187,7 @@ class ChatGPTAutomation:
                     buttons = self.driver.find_elements(By.CSS_SELECTOR, 'button.btn.relative.btn-primary.m-auto')
                     buttons[-1].click()
                     time.sleep(5)
+                    self.check_response_ended()
                 except:
                     print(f"{i}th limit_check")
                     continue
