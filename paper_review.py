@@ -1,4 +1,4 @@
-import json
+import os
 from tqdm import tqdm
 from datetime import datetime
 from prompt import prompts
@@ -71,6 +71,9 @@ chatgpt = ChatGPTAutomation(chrome_path, chrome_driver_path)
 
 while True:
     file_name = input("논문 파일 이름을 입력하세요: ")
+    if os.path.exists(f"./outputs/{file_name}.md"):
+        print("이미 정리한 논문입니다.")
+        continue
     
     with open('./format.md', 'r') as f:
         result = f.read()
@@ -97,5 +100,7 @@ while True:
     isContinue = input("계속하시겠습니까?")
     if isContinue.lower() == "n":
         break
+    else:
+        chatgpt.driver.get(chatgpt.url)
 
 chatgpt.quit()

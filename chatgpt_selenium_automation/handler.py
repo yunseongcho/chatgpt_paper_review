@@ -26,9 +26,9 @@ class ChatGPTAutomation:
         self.chrome_path = chrome_path
         self.chrome_driver_path = chrome_driver_path
 
-        url = r"https://chatgpt.com/g/g-QimHvan5s-ai-paper-translator"
+        self.url = r"https://chatgpt.com/g/g-QimHvan5s-ai-paper-translator"
         free_port = self.find_available_port()
-        self.launch_chrome_with_remote_debugging(free_port, url)
+        self.launch_chrome_with_remote_debugging(free_port, self.url)
         self.wait_for_human_verification()
         self.driver = self.setup_webdriver(free_port)
         # self.cookie = self.get_cookie()
@@ -180,7 +180,23 @@ class ChatGPTAutomation:
         buttons = self.driver.find_elements(By.CSS_SELECTOR, 'button.btn.relative.btn-secondary.whitespace-nowrap.border-0.md\\:border')
         return len(buttons)==0
         
-
+    def check_limit(self):
+        while len(self.driver.find_elements(By.CSS_SELECTOR, 'button.btn.relative.btn-primary.m-auto'))!=0:
+            for i in range(3):
+                try:
+                    buttons = self.driver.find_elements(By.CSS_SELECTOR, 'button.btn.relative.btn-primary.m-auto')
+                    buttons[-1].click()
+                    time.sleep(5)
+                except:
+                    print(f"{i}th limit_check")
+                    continue
+                
+            isnotlimited = input("리미트가 해제되었나요?: ")
+            if isnotlimited.lower()=="y":
+                buttons = self.driver.find_elements(By.CSS_SELECTOR, 'button.btn.relative.btn-primary.m-auto')
+                buttons[-1].click()
+                time.sleep(5)
+            
 
     def return_last_response(self):
         """ :return: the text of the last chatgpt response """
@@ -189,6 +205,8 @@ class ChatGPTAutomation:
         response_elements = self.driver.find_elements(by=By.CSS_SELECTOR, value='div.text-base')
         return response_elements[-1].text
         '''
+        
+        self.check_limit()
         
         while True:
             if self.continue_response():
