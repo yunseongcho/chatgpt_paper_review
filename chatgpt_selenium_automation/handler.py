@@ -191,11 +191,12 @@ class ChatGPTAutomation:
                     print(f"{i}th limit_check")
                     continue
                 
-            isnotlimited = input("리미트가 해제되었나요?: ")
+            isnotlimited = input("리미트가 해제되었나요? (y/n): ")
             if isnotlimited.lower()=="y":
                 buttons = self.driver.find_elements(By.CSS_SELECTOR, 'button.btn.relative.btn-primary.m-auto')
                 buttons[-1].click()
                 time.sleep(5)
+                self.check_response_ended()
             
 
     def return_last_response(self):

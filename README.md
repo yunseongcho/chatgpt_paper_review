@@ -1,7 +1,7 @@
 https://github.com/Michelangelo27/chatgpt_selenium_automation.git 를 참조하여 만들었습니다.
 
 # Guide
-본 코드는 ChatGPT plus를 사용자, Mac OS 사용자 기준으로 작성되었습니다. 윈도우의 경우 일정 부분 수정이 필요합니다.
+본 코드는 ChatGPT plus 사용자, Mac OS 사용자 기준으로 작성되었습니다. 윈도우의 경우 일정 부분 수정이 필요합니다.
 
 준비
 ```
