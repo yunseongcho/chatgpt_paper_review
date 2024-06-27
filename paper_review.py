@@ -35,7 +35,7 @@ else:
 chatgpt = ChatGPTAutomation(chrome_path, chrome_driver_path, url)
 
 while True:
-    file_name = input("Enter the name of the paper: ")
+    file_name = input("Put your pdf file to chatgpt. And then enter the name of the paper: ")
     if os.path.exists(f"{output_root}/{file_name}.md"):
         print("This is a paper that has already been compiled.")
         continue
