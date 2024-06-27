@@ -14,6 +14,7 @@ def replace_info(txt: str, file_name: str):
     txt = txt.replace("title_gpt", title)
     txt = txt.replace("yymm_gpt", yymm)
     txt = txt.replace("journal_gpt", journal)
+    txt = txt.replace("preview_gpt", f"![[{file_name}.pdf]]")
     
     now = datetime.now()
     formatted_date = now.strftime("%Y-%m-%d (%a) %p %I:%M")
