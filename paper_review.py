@@ -1,7 +1,7 @@
 import os
 from tqdm import tqdm
 from datetime import datetime
-from prompt import prompts
+from prompt import prompts_korean, prompts_eng
 
 from chatgpt_selenium_automation.handler import ChatGPTAutomation
 from webdriver_manager.chrome import ChromeDriverManager
@@ -10,11 +10,12 @@ from utils import replace_info, replace_fomula, process_prompts
 
 chrome_driver_path = ChromeDriverManager().install()
 
-# for mac
+# Please check your chrome path
 if os.name == "posix":
+    # for mac
     chrome_path = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-# for window
 elif os.name == "nt":
+    # for window
     chrome_path = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
 else:
     raise NotImplementedError("Unsupported OS")
@@ -23,7 +24,13 @@ output_root = "./outputs"
 
 os.makedirs(output_root, exist_ok=True)
 
-url = r"https://chatgpt.com/g/g-LvjoKoodu-ai-paper-analyzer"
+if input("Are you Korean? 한국인 이십니까? (y/n): ")=="y":
+    prompts = prompts_korean
+    url = r"https://chatgpt.com/g/g-QimHvan5s-ai-paper-translator"
+else:
+    prompts = prompts_eng
+    url = r"https://chatgpt.com/g/g-LvjoKoodu-ai-paper-analyzer"
+    
 chatgpt = ChatGPTAutomation(chrome_path, chrome_driver_path, url)
 
 while True:
