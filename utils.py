@@ -1,6 +1,8 @@
 from datetime import datetime
 
-def replace_fomula(txt: str):
+def replace_fomula(txt: str) -> str:
+    """Change the formula in ChatGPT to markdown format."""
+    
     txt = txt.replace("\\( ", "$")
     txt = txt.replace(" \\)", "$ ")
     txt = txt.replace("\\(", "$")
@@ -9,7 +11,9 @@ def replace_fomula(txt: str):
     txt = txt.replace("\\]", "$$")
     return txt
 
-def replace_info(txt: str, file_name: str):
+def replace_info(txt: str, file_name: str) ->  str:
+    """Modify format information."""
+    
     yymm, journal, title = file_name.split("_")
     txt = txt.replace("title_gpt", title)
     txt = txt.replace("yymm_gpt", yymm)
@@ -20,7 +24,9 @@ def replace_info(txt: str, file_name: str):
     txt = txt.replace("date_gpt", formatted_date)
     return txt
 
-def process_prompts(prompts, depth=1, counter=[1], question_dict={}):
+def process_prompts(prompts, depth=1, counter=[1], question_dict={}) -> list[str, dict]:
+    """This is a recursive function that writes prompts in prompt.py into the format.md file."""
+    
     result = ""
     
     for key, value in prompts.items():
