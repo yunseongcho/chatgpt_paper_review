@@ -66,113 +66,100 @@ class ChatGPTAutomation:
     def send_prompt_to_chatgpt(self, prompt):
         """ Sends a message to ChatGPT and waits for 20 seconds for the response """
 
+        # 앞선 질문이 완료되었는지 확인
+        self.check_response_ended()       
+
         input_box = self.driver.find_element(by=By.XPATH, value='//textarea[contains(@id, "prompt-textarea")]')
         safe_prompt = json.dumps(prompt)
         safe_prompt = safe_prompt[1:-1]
         self.driver.execute_script(f"arguments[0].value = '{safe_prompt}';", input_box)
         input_box.send_keys(Keys.RETURN)
         input_box.submit()
-        self.check_response_ended()
-
-    def check_response_ended(self):
-        last_height = self.driver.execute_script("return document.body.scrollHeight")
-        start_time = time.time()
-        while True:
-            # 페이지 맨 아래로 스크롤
-            self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            
-            # 스크롤이 완료될 때까지 대기
-            time.sleep(10)
-            
-            # 새로운 스크롤 높이 계산
-            new_height = self.driver.execute_script("return document.body.scrollHeight")
-            
-            # 스크롤 위치가 더 이상 변경되지 않으면 루프 종료
-            if new_height == last_height:
-                # 작은 대기 시간을 추가하여 동적 콘텐츠 로딩 확인
-                time.sleep(10)
-                new_height = self.driver.execute_script("return document.body.scrollHeight")
-                if new_height == last_height:
-                    break
-            
-            last_height = new_height
-
-            # 시작 후 90초 경과 시 무조건 pass            
-            if time.time() - start_time > 90:
-                break
-            
-        time.sleep(1)
-
-    def continue_response(self):
-        for i in range(2):
-            for j in range(3):
-                self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-                time.sleep(1)
-            
-            try:
-                buttons = self.driver.find_elements(By.CSS_SELECTOR, 'button.btn.relative.btn-secondary.whitespace-nowrap.border-0.md\\:border')
-                if len(buttons)==0:
-                    continue
-                buttons[-1].click()
-                break
-            except:
-                continue
-            
-        self.check_response_ended()
         
-        for j in range(3):
+        # 질문에 대한 답변이 완료되었는지 확인
+        time.sleep(1)
+        self.check_response_ended()
+
+    def scroll_down(self, cnt):
+        for i in range(cnt):
             self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
             time.sleep(1)
-        
+
+    def check_stop(self):
+        stop_buttons = self.driver.find_elements(By.CSS_SELECTOR, "button[data-testid='fruitjuice-stop-button']")
+        return len(stop_buttons)!=0
+
+    def check_continue(self):
+        self.scroll_down(3)
         buttons = self.driver.find_elements(By.CSS_SELECTOR, 'button.btn.relative.btn-secondary.whitespace-nowrap.border-0.md\\:border')
-        return len(buttons)==0
-        
-    def check_limit(self):
-        while len(self.driver.find_elements(By.CSS_SELECTOR, 'button.btn.relative.btn-primary.m-auto'))!=0:
-            for i in range(3):
-                try:
-                    buttons = self.driver.find_elements(By.CSS_SELECTOR, 'button.btn.relative.btn-primary.m-auto')
-                    buttons[-1].click()
-                    time.sleep(5)
-                    self.check_response_ended()
-                except:
-                    print(f"{i}th limit_check")
-                    continue
+        return len(buttons)!=0
+    
+    def click_continue(self):
+        self.scroll_down(3)
+        buttons = self.driver.find_elements(By.CSS_SELECTOR, 'button.btn.relative.btn-secondary.whitespace-nowrap.border-0.md\\:border')
+        buttons[-1].click()
+
+    def check_regenerate(self):
+        self.scroll_down(3)
+        buttons = self.driver.find_elements(By.CSS_SELECTOR, 'button.btn.relative.btn-primary.m-auto')
+        return len(buttons)!=0
+    
+    def click_regenerate(self):
+        self.scroll_down(3)
+        buttons = self.driver.find_elements(By.CSS_SELECTOR, 'button.btn.relative.btn-primary.m-auto')
+        buttons[-1].click()
+
+    def check_response_ended(self):
+        regen_cnt = 0
+        while True:
+            # stop button 이 존재하는 지 확인
+            while self.check_stop():
+                time.sleep(10)
             
-            if input("메시지 리미트 문제인가요? (y/n): ").lower()=="y":
-                if input("리미트가 해제되었나요? (y/n): ").lower()=="y":
-                    buttons = self.driver.find_elements(By.CSS_SELECTOR, 'button.btn.relative.btn-primary.m-auto')
-                    buttons[-1].click()
-                    time.sleep(5)
-                    self.check_response_ended()
-            else:
-                # 리미트 문제가 아닌 경우 답변을 기다리고 넘어간다.
-                self.check_response_ended()
-                break
+            # 계속 버튼이 있으면 누른다. 
+            if self.check_continue():
+                self.click_continue()
+                continue
+            
+            # regenerate 버튼이 있는 경우
+            if self.check_regenerate():
+                # 3번쨰 재 생성까지는 OK
+                if regen_cnt < 3:
+                    self.click_regenerate()
+                    regen_cnt += 1
+                    continue
+                # 4번째 regenerate = limit 걸렸다고 간주.
+                else:
+                    # 리미트 해제 O
+                    if input("리미트가 해제되었나요? (y/n): ").lower()!="n":
+                        self.click_regenerate()
+                        regen_cnt = 0
+                        continue
+                    # 리미트 해제 X
+                    else:
+                        self.quit()
+            break
+        time.sleep(1)
             
 
     def return_last_response(self):
         """ :return: the text of the last chatgpt response """
-
-        # chatgpt limit에 도달하였는지 체크한다.        
-        self.check_limit()
+        # 앞선 질문이 완료되었는지 확인
+        self.check_response_ended()
         
-        # 답변이 길어지는 경우 계속 버튼을 누른다.
-        while True:
-            if self.continue_response():
-                break
         
         for i in range(3):
-            for j in range(3):
-                self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-                time.sleep(1)
+            # 스크롤 내리기
+            self.scroll_down(3)
+            
+            # 복사버튼을 누른다.
             try:
-                # 복사버튼을 누른다.
                 buttons = self.driver.find_elements(By.CSS_SELECTOR, 'button.rounded-lg.text-token-text-secondary.hover\\:bg-token-main-surface-secondary')
                 buttons[-3].click()
                 break
             except:
                 continue
+            
         return pyperclip.paste()
         
 
