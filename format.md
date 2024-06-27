@@ -1,11 +1,15 @@
 ---
-TITLE: title_gpt
-DATE: yymm_gpt
-JOURNAL: journal_gpt
+제목: title_gpt
+출판연월: yymm_gpt
+출판지: journal_gpt
 tags:
   - GPT
   - Paper
-INSTITUTION: 
-CREATED DATE: date_gpt
+저자 기관: 
+생성일시: date_gpt
+이해 완료: 
+정리 완료:
 ---
+# Files
+preview_gpt
 
