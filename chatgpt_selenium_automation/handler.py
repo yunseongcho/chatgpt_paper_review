@@ -161,7 +161,7 @@ class ChatGPTAutomation:
                 else:
                     # check the limit
                     if input("Has the limit been lifted? (y/n): ").lower()!="n":
-                        self.click_regenerate()
+                        # self.click_regenerate()
                         regen_cnt = 0
                         continue
                     else:
