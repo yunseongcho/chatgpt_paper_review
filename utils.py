@@ -1,11 +1,11 @@
 from datetime import datetime
 
 def replace_fomula(txt: str):
-    txt = txt.replace("\\( ", "$\\color{orange}")
+    txt = txt.replace("\\( ", "$")
     txt = txt.replace(" \\)", "$ ")
-    txt = txt.replace("\\(", "$\\color{orange}")
+    txt = txt.replace("\\(", "$")
     txt = txt.replace("\\)", "$ ")
-    txt = txt.replace("\\[", "$$\\color{orange}")
+    txt = txt.replace("\\[", "$$")
     txt = txt.replace("\\]", "$$")
     return txt
 

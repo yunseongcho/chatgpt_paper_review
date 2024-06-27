@@ -10,22 +10,21 @@ from utils import replace_info, replace_fomula, process_prompts
 
 chrome_driver_path = ChromeDriverManager().install()
 chrome_path = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-# output_root = "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Obsidian/Knowledge/GPT"
 output_root = "./outputs"
 
 os.makedirs(output_root, exist_ok=True)
 
-url = r"https://chatgpt.com/g/g-QimHvan5s-ai-paper-translator"
+url = r"https://chatgpt.com"
 chatgpt = ChatGPTAutomation(chrome_path, chrome_driver_path, url)
 
 while True:
-    file_name = input("논문 파일 이름을 입력하세요: ")
+    file_name = input("Enter the name of the paper: ")
     if os.path.exists(f"{output_root}/{file_name}.md"):
-        print("이미 정리한 논문입니다.")
+        print("This is a paper that has already been compiled.")
         continue
     
     if len(file_name.split("_"))!=3:
-        print("논문 이름의 형식을 준수해주세요. (YYMM_Journal_PaperTitle)")
+        print("Please follow the format of the paper name. 'YYMM_Journal_PaperTitle'")
         continue    
     
     with open('./format.md', 'r') as f:
@@ -50,7 +49,7 @@ while True:
     with open(f"{output_root}/{file_name}.md", 'w') as f:
         f.write(result)
         
-    isContinue = input("계속하시겠습니까? (y/n): ")
+    isContinue = input("continue? (y/n): ")
     if isContinue.lower() == "n":
         break
     else:
