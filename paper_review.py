@@ -9,12 +9,21 @@ from webdriver_manager.chrome import ChromeDriverManager
 from utils import replace_info, replace_fomula, process_prompts
 
 chrome_driver_path = ChromeDriverManager().install()
-chrome_path = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+
+# for mac
+if os.name == "posix":
+    chrome_path = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+# for window
+elif os.name == "nt":
+    chrome_path = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+else:
+    raise NotImplementedError("Unsupported OS")
+
 output_root = "./outputs"
 
 os.makedirs(output_root, exist_ok=True)
 
-url = r"https://chatgpt.com"
+url = r"https://chatgpt.com/g/g-LvjoKoodu-ai-paper-analyzer"
 chatgpt = ChatGPTAutomation(chrome_path, chrome_driver_path, url)
 
 while True:
