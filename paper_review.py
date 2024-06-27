@@ -10,8 +10,8 @@ from utils import replace_info, replace_fomula, process_prompts
 
 chrome_driver_path = ChromeDriverManager().install()
 chrome_path = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-output_root = "/Usezs/user/Library/Mobile Documents/com~apple~CloudDocs/Obsidian/Knowledge/GPT"
-# output_root = "./outputs"
+# output_root = "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Obsidian/Knowledge/GPT"
+output_root = "./outputs"
 
 os.makedirs(output_root, exist_ok=True)
 
