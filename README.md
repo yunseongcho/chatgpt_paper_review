@@ -41,3 +41,6 @@ Please check your chrome path in `paper_review.py`
    ex) 1412_NIPS_Generative Adversarial Nets
 7. GPT에 `prompt_korean.py` 에 넣어놓은 프롬프트들이 자동으로 입력되며 답변을 `outputs` 폴더 내에 저장합니다.
 8. 계속해서 다음 논문을 입력하시려면 "continue? (y/n)" 에 y를 입력으로 넣어주시고 4번부터 반복하시면 됩니다.
+
+
+`prompt.py` 에서 prompt들을 수정할 수 있습니다.
