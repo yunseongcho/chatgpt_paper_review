@@ -36,7 +36,6 @@ A. Author, B. Author, and C. Author, "Title of the paper," in Proceedings of the
 """,
     
     "Baseline": 
-
 """제공된 논문을 면밀히 검토하여, 논문에서 설명하고 있는 방법론의 기반이 되는 Baseline model 은 무엇인지, 논문의 Baseline model은 어떤 구조 혹은 논문을 참고했는지 상세하고 풍부하게 알려주시면 대단히 감사하겠습니다. Baseline이 없다면 없다고 말씀해주세요.
         
 답변을 작성하는 데 참고한 참고 문헌이 있다면, 제목과 출처를 빠뜨리지 않고 꼭 넣어주십시오. 참고 문헌의 스타일은 아래와 같은 번호가 없는 IEEE 스타일입니다. 
