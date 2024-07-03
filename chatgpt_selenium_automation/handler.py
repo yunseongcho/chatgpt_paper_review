@@ -143,7 +143,7 @@ class ChatGPTAutomation:
         while True:
             # check the stop button
             while self.check_stop():
-                time.sleep(10)
+                time.sleep(3)
             
             # if there is continue button, click
             if self.check_continue():
