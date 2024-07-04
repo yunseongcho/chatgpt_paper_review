@@ -152,8 +152,6 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-# Text file generated
-*.txt
 
 # Remote profile folder
 remote-profile/

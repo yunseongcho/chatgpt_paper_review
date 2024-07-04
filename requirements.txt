@@ -1,0 +1,4 @@
+selenium==4.21.0
+webdriver-manager
+tqdm
+pyperclip
