@@ -30,6 +30,8 @@ Please check your chrome path in `paper_review.py`
 pip install -r requirements.txt
 ```
 Please check your chrome path in `paper_review.py`
+
+windows의 경우 관리자로 권한으로 실행해야합니다.
 ## Step-by-step
 
 1. `python paper_review.py` 를 실행시킵니다.

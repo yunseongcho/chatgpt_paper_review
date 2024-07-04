@@ -20,8 +20,7 @@ elif os.name == "nt":
 else:
     raise NotImplementedError("Unsupported OS")
 
-# output_root = "./outputs"
-output_root = "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Obsidian/Knowledge/GPT"
+output_root = "./outputs"
 
 os.makedirs(output_root, exist_ok=True)
 
