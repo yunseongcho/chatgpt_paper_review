@@ -151,7 +151,7 @@ class ChatGPTAutomation:
         while True:
             # check the stop button
             while self.check_stop():
-                time.sleep(10)
+                time.sleep(3)
             
             # if there is continue button, click
             if self.check_continue():
@@ -169,6 +169,7 @@ class ChatGPTAutomation:
                 else:
                     # check the limit
                     if input("Has the limit been lifted? (y/n): ").lower()!="n":
+                        # self.click_regenerate()
                         regen_cnt = 0
                         continue
                     else:
