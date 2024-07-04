@@ -27,7 +27,6 @@ os.makedirs(output_root, exist_ok=True)
 
 if input("Are you Korean? 한국인 이십니까? (y/n): ")=="y":
     prompts = prompts_korean
-    # url = r"https://chatgpt.com/g/g-QimHvan5s-ai-paper-translator"
     url = r"https://chatgpt.com/g/g-Zbl0ag85p-ai-nonmun-haeseolja"
 else:
     prompts = prompts_eng
