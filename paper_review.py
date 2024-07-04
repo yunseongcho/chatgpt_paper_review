@@ -39,10 +39,6 @@ while True:
         print("This is a paper that has already been compiled.")
         continue
     
-    if len(file_name.split("_"))!=3:
-        print("Please follow the format of the paper name. 'YYMM_Journal_PaperTitle'")
-        continue    
-    
     with open('./format.md', 'r') as f:
         result = f.read()
 
