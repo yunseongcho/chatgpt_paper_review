@@ -49,8 +49,16 @@ class ChatGPTAutomation:
 
         def open_chrome():
             """For smooth chatgpt connection, run Chrome in guest mode."""
-
-            chrome_cmd = f'"{self.chrome_path}" --remote-debugging-port={port} --user-data-dir=remote-profile --guest {url}'
+            # Please check your chrome path
+            if os.name == "posix":
+                # for mac
+                chrome_cmd = f'"{self.chrome_path}" --remote-debugging-port={port} --user-data-dir=remote-profile --guest {url}'
+            elif os.name == "nt":
+                # for window
+                chrome_cmd = f'{self.chrome_path} --remote-debugging-port={port} --user-data-dir=remote-profile --guest {url}'
+            else:
+                raise NotImplementedError("Unsupported OS")
+            
             os.system(chrome_cmd)
 
         chrome_thread = threading.Thread(target=open_chrome)

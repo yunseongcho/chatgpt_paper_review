@@ -16,7 +16,7 @@ if os.name == "posix":
     chrome_path = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 elif os.name == "nt":
     # for window
-    chrome_path = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+    chrome_path = r'"C:\Program Files\Google\Chrome\Application\chrome.exe"'
 else:
     raise NotImplementedError("Unsupported OS")
 
