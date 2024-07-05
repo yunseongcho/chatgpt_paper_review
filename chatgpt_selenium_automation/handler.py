@@ -129,16 +129,15 @@ class ChatGPTAutomation:
         
         regen_cnt = 0
         while True:
-            # check the stop button
-            
             start_time = time.time()
             
-            # break when there is no stop button
+            time.sleep(90)
+            # check the stop button, break when there is no stop button
+            
             while self.check_stop():
-                time.sleep(90)
-                
+                time.sleep(1)
                 # after 2 miniutes, driver refreshed and regenerate
-                if time.time() - start_time > 300:
+                if time.time() - start_time > 120:
                     self.driver.refresh()
                     buttons = self.driver.find_elements(By.CSS_SELECTOR, 'button.rounded-lg.text-token-text-secondary.hover\\:bg-token-main-surface-secondary')
                     # regenerate button
