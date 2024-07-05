@@ -31,7 +31,7 @@ class ChatGPTAutomation:
         self.launch_chrome_with_remote_debugging(free_port, self.url)
         self.wait_for_human_verification()
         self.driver = self.setup_webdriver(free_port)
-
+        
 
     @staticmethod
     def find_available_port():
@@ -78,10 +78,7 @@ class ChatGPTAutomation:
 
     def send_prompt_to_chatgpt(self, prompt: str):
         """Sends a message to ChatGPT and waits for 20 seconds for the response"""
-
-        # Check if previous questions have been completed
-        self.check_response_ended()       
-
+        
         # Send the prompt
         input_box = self.driver.find_element(by=By.XPATH, value='//textarea[contains(@id, "prompt-textarea")]')
         safe_prompt = json.dumps(prompt)
@@ -90,33 +87,18 @@ class ChatGPTAutomation:
         input_box.send_keys(Keys.RETURN)
         input_box.submit()
         
-        # Check if your question is answered
         time.sleep(1)
-        self.check_response_ended()
-
-    def scroll_down(self, cnt: int):
-        """scroll down
-
-        Args:
-            cnt (int): how many scroll down
-        """
-        
-        for i in range(cnt):
-            self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            time.sleep(1)
-
 
     def check_stop(self):
         """check if there is stop button"""
         
         stop_buttons = self.driver.find_elements(By.CSS_SELECTOR, "button[data-testid='fruitjuice-stop-button']")
         return len(stop_buttons)!=0
-
-
+    
+    
     def check_continue(self):
         """check if there is continue button"""
         
-        self.scroll_down(3)
         buttons = self.driver.find_elements(By.CSS_SELECTOR, 'button.btn.relative.btn-secondary.whitespace-nowrap.border-0.md\\:border')
         return len(buttons)!=0
 
@@ -124,7 +106,6 @@ class ChatGPTAutomation:
     def click_continue(self):
         """click continue button"""
         
-        self.scroll_down(3)
         buttons = self.driver.find_elements(By.CSS_SELECTOR, 'button.btn.relative.btn-secondary.whitespace-nowrap.border-0.md\\:border')
         buttons[-1].click()
 
@@ -132,7 +113,6 @@ class ChatGPTAutomation:
     def check_regenerate(self):
         """check if there is regenerate button"""
         
-        self.scroll_down(3)
         buttons = self.driver.find_elements(By.CSS_SELECTOR, 'button.btn.relative.btn-primary.m-auto')
         return len(buttons)!=0
     
@@ -140,9 +120,9 @@ class ChatGPTAutomation:
     def click_regenerate(self):
         """click regenerate button"""
         
-        self.scroll_down(3)
         buttons = self.driver.find_elements(By.CSS_SELECTOR, 'button.btn.relative.btn-primary.m-auto')
         buttons[-1].click()
+        
 
     def check_response_ended(self):
         """The completion of the answer is judged based on the presence or absence of the stop button."""
@@ -150,8 +130,19 @@ class ChatGPTAutomation:
         regen_cnt = 0
         while True:
             # check the stop button
+            
+            start_time = time.time()
+            
+            # break when there is no stop button
             while self.check_stop():
-                time.sleep(3)
+                time.sleep(90)
+                
+                # after 2 miniutes, driver refreshed and regenerate
+                if time.time() - start_time > 300:
+                    self.driver.refresh()
+                    buttons = self.driver.find_elements(By.CSS_SELECTOR, 'button.rounded-lg.text-token-text-secondary.hover\\:bg-token-main-surface-secondary')
+                    # regenerate button
+                    buttons[-2].click()
             
             # if there is continue button, click
             if self.check_continue():
@@ -169,7 +160,6 @@ class ChatGPTAutomation:
                 else:
                     # check the limit
                     if input("Has the limit been lifted? (y/n): ").lower()!="n":
-                        # self.click_regenerate()
                         regen_cnt = 0
                         continue
                     else:
@@ -187,8 +177,6 @@ class ChatGPTAutomation:
         
         
         for i in range(3):
-            self.scroll_down(3)
-            
             # click the copy button
             try:
                 buttons = self.driver.find_elements(By.CSS_SELECTOR, 'button.rounded-lg.text-token-text-secondary.hover\\:bg-token-main-surface-secondary')

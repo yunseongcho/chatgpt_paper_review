@@ -20,7 +20,6 @@ elif os.name == "nt":
 else:
     raise NotImplementedError("Unsupported OS")
 
-# output_root = "./outputs"
 output_root = "/Users/user/Library/Mobile Documents/com~apple~CloudDocs/Obsidian/Knowledge/GPT"
 
 os.makedirs(output_root, exist_ok=True)
@@ -64,6 +63,9 @@ while True:
     result = replace_fomula(result)    
         
     with open(f"{output_root}/{file_name}.md", 'w') as f:
+        f.write(result)
+    
+    with open(f"./outputs/{file_name}.md", 'w') as f:
         f.write(result)
         
     isContinue = input("continue? (y/n): ")
