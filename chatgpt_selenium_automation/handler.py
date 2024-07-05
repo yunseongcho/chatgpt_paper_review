@@ -87,7 +87,6 @@ class ChatGPTAutomation:
         input_box.send_keys(Keys.RETURN)
         input_box.submit()
         
-        time.sleep(1)
 
     def check_stop(self):
         """check if there is stop button"""
