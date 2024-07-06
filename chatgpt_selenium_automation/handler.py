@@ -4,6 +4,7 @@ import threading
 import time
 import pyperclip
 import json
+import copy
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -87,12 +88,22 @@ class ChatGPTAutomation:
         input_box.send_keys(Keys.RETURN)
         input_box.submit()
         
+        # starting response
+        time.sleep(15)
 
     def check_stop(self):
         """check if there is stop button"""
         
         stop_buttons = self.driver.find_elements(By.CSS_SELECTOR, "button[data-testid='fruitjuice-stop-button']")
         return len(stop_buttons)!=0
+    
+    def check_response_changed(self):
+        """check whether the response change or not"""
+        
+        txt1 = copy.deepcopy(self.driver.find_elements(By.CLASS_NAME, "markdown")[-1].text)
+        time.sleep(5)
+        txt2 = copy.deepcopy(self.driver.find_elements(By.CLASS_NAME, "markdown")[-1].text)
+        return len(txt1)<len(txt2)
     
     
     def check_continue(self):
@@ -128,19 +139,20 @@ class ChatGPTAutomation:
         
         regen_cnt = 0
         while True:
+            # check the stop button, break when there is no stop button            
             start_time = time.time()
-            
-            time.sleep(90)
-            # check the stop button, break when there is no stop button
-            
-            while self.check_stop():
+            while self.check_stop() or self.check_response_changed():
                 time.sleep(1)
-                # after 2 miniutes, driver refreshed and regenerate
-                if time.time() - start_time > 120:
-                    self.driver.refresh()
-                    buttons = self.driver.find_elements(By.CSS_SELECTOR, 'button.rounded-lg.text-token-text-secondary.hover\\:bg-token-main-surface-secondary')
-                    # regenerate button
-                    buttons[-2].click()
+                # after 5 miniutes, driver refreshed and regenerate
+                if time.time() - start_time > 300:
+                    if input("Do you want page refresh? (y/n): ")=="y":
+                        self.driver.refresh()
+                        time.sleep(5)
+                        buttons = self.driver.find_elements(By.CSS_SELECTOR, 'button.rounded-lg.text-token-text-secondary.hover\\:bg-token-main-surface-secondary')
+                        # regenerate button
+                        buttons[-2].click()
+                    else:
+                        continue
             
             # if there is continue button, click
             if self.check_continue():
