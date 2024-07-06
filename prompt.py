@@ -27,7 +27,7 @@ A. Author, B. Author, and C. Author, "Title of the paper," in Proceedings of the
 "제공된 논문의 Introduction 부분을 면밀히 검토하여, 무엇이 이 연구를 시작하게한 주요한 동기(motivation) 이었는지 어떤 문제(problem)나 도전(challenge)을 해결하려고 했는지 설명해주십시오.",
 
     "Contribution": 
-"제공된 논문을 Introduction 부분을 면밀히 검토하여, 이 논문의 주요 기여(contribution) 에 대한 풍부하고 상세한 설명을 제공해 주실 수 있을까요?"
+"제공된 논문의 Introduction 부분을 면밀히 검토하여, 이 논문의 주요 기여(contribution) 에 대한 풍부하고 상세한 설명을 제공해 주실 수 있을까요?"
 },
     
 "Related Works": {
