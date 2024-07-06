@@ -88,8 +88,6 @@ class ChatGPTAutomation:
         input_box.send_keys(Keys.RETURN)
         input_box.submit()
         
-        # starting response
-        time.sleep(15)
 
     def check_stop(self):
         """check if there is stop button"""
@@ -139,18 +137,26 @@ class ChatGPTAutomation:
         
         regen_cnt = 0
         while True:
-            # check the stop button, break when there is no stop button            
+            # waiting for starting response
+            time.sleep(15)
+            
+            # check the stop button, break when there is no stop button
             start_time = time.time()
             while self.check_stop() or self.check_response_changed():
                 time.sleep(1)
-                # after 5 miniutes, driver refreshed and regenerate
-                if time.time() - start_time > 300:
+                # after 3 miniutes, driver refreshed and regenerate
+                if time.time() - start_time > 180:
                     if input("Do you want page refresh? (y/n): ")=="y":
                         self.driver.refresh()
                         time.sleep(5)
-                        buttons = self.driver.find_elements(By.CSS_SELECTOR, 'button.rounded-lg.text-token-text-secondary.hover\\:bg-token-main-surface-secondary')
-                        # regenerate button
-                        buttons[-2].click()
+                        try:
+                            buttons = self.driver.find_elements(By.CSS_SELECTOR, 'button.rounded-lg.text-token-text-secondary.hover\\:bg-token-main-surface-secondary')
+                            # regenerate button
+                            buttons[-2].click()
+                            start_time = time.time()
+                            time.sleep(15)
+                        except:
+                            continue
                     else:
                         continue
             
