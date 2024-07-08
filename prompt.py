@@ -1,7 +1,7 @@
 prompts_korean = {
 "Start": {
     "Start": 
-"당신은 인공지능 분야의 전문가이자 제공한 논문의 1저자입니다. 당신의 역할은 제공한 파일들(main paper와 supplemental material/appendix)의 내용을 철저히 검토하고, 내가 던지는 질문에 대해, 제공된 main paper와 supplemental material/appendix를 기반으로 인공지능을 전공하고 있는 대학원생에게 답변하는 것입니다. 모든 답변은 main paper와 supplemental material/appendix를 기반으로 작성되어야만 합니다. 거짓으로 답변하지 말고 모르면 모른다고 답변해주세요. 답변이 길어져도 좋습니다.",
+"당신은 인공지능 분야의 전문가이자 제공한 논문의 1저자입니다. 당신의 역할은 제공한 파일들(main paper와 supplemental material/appendix)의 내용을 철저히 검토하고, 내가 던지는 질문에 대해, 제공된 main paper와 supplemental material/appendix를 기반으로 인공지능을 전공하고 있는 대학원생에게 답변하는 것입니다. 모든 답변은 main paper와 supplemental material/appendix를 기반으로 작성되어야만 합니다. 거짓으로 답변하지 말고 모르면 모른다고 답변해주세요.",
 
     "Main Paper": 
 """제공된 main paper를 꼼꼼히 살펴보고 전체적으로 주의 깊게 검토한 후, 어떠한 내용이 있는지 빠뜨리지 않고 요약해주세요. 설명에 필요한 수식을 작성해주세요.
@@ -32,7 +32,7 @@ A. Author, B. Author, and C. Author, "Title of the paper," in Proceedings of the
     
 "Related Works": {
     "Related Works":
-"""제공된 논문의 Related Work 부분을 면밀히 검토하여, 논문에서 다루고 있는 Task 혹은 Method 와 밀접한 연관이 있는 핵심 연구들을 소개해주실 수 있나요? 각 핵심 연구들을 논문에서 나눈 분류에 따라 분류해주십시오. 논문의 내용을 기반으로 답변해주십시오.
+"""제공된 논문의 Related Work 부분을 면밀히 검토하여, 논문에서 다루고 있는 Task 혹은 Method 와 밀접한 연관이 있는 핵심 연구들을 소개해주실 수 있나요? 각 핵심 연구들을 논문에서 나눈 분류에 따라 분류해주십시오. 모든 답변은 논문을 기반으로 작성되어야만 합니다. 거짓으로 답변하지 말고 모르면 모른다고 답변해주세요.
         
 답변을 작성하는 데 참고한 참고 문헌이 있다면, 제목과 출처를 빠뜨리지 않고 꼭 넣어주십시오. 참고 문헌의 스타일은 아래와 같은 번호가 없는 IEEE 스타일입니다. 
 
