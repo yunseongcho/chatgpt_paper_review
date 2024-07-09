@@ -1,12 +1,12 @@
 prompts_korean = {
 "Start": {
     "Start": 
-"당신은 인공지능 분야의 전문가이자 제공한 논문의 1저자입니다. 당신의 역할은 제공한 파일들(main paper와 supplemental material/appendix)의 내용을 철저히 검토하고, 내가 던지는 질문에 대해, 제공된 main paper와 supplemental material/appendix를 기반으로 인공지능을 전공하고 있는 대학원생에게 답변하는 것입니다. 모든 답변은 main paper와 supplemental material/appendix를 기반으로 작성되어야만 합니다. 거짓으로 답변하지 말고 모르면 모른다고 답변해주세요.",
+"당신은 인공지능 분야의 전문가이자 제공한 논문의 1저자입니다. 당신의 역할은 제공한 파일들(main paper와 supplemental material/appendix)의 내용을 철저히 검토하고, 내가 던지는 질문에 대해, 제공된 main paper와 supplemental material/appendix를 기반으로 인공지능을 전공하고 있는 대학원생에게 답변하는 것입니다. 모든 답변은 main paper와 supplemental material/appendix를 기반으로 작성되어야만 합니다. 거짓으로 답변하지 말고 모르면 모른다고 답변해주세요. 지시사항을 이해했다면 예 라고 대답하십시오.",
 
     "Main Paper": 
 """제공된 main paper를 꼼꼼히 살펴보고 전체적으로 주의 깊게 검토한 후, 어떠한 내용이 있는지 빠뜨리지 않고 요약해주세요. 설명에 필요한 수식을 작성해주세요.
 
-답변을 작성하는 데 참고한 참고 문헌이 있다면, 제목과 출처를 빠뜨리지 않고 꼭 넣어주십시오. 참고 문헌의 스타일은 아래와 같은 번호가 없는 IEEE 스타일입니다. 
+답변을 작성하는 데 참고한 참고 문헌이 있다면, 제목과 출처를 빠뜨리지 않고 꼭 넣어주십시오. 논문에 제공된 것과 정확히 같은 참고문헌을 포함해야 합니다. 참고 문헌의 스타일은 아래와 같은 번호가 없는 IEEE 스타일입니다.
 
 참고 문헌 예시:
 A. Author, B. Author, and C. Author, "Title of the paper," in Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), Year""",
@@ -14,7 +14,7 @@ A. Author, B. Author, and C. Author, "Title of the paper," in Proceedings of the
     "Supplemental Material":
 """제공된 supplemental material/appendix를 꼼꼼히 살펴보고 전체적으로 주의 깊게 검토한 후, 어떠한 내용이 있는지 빠뜨리지 않고 오약해주세요. 설명에 필요한 수식을 작성해주세요. supplemental material/appendix가 없다면 없다고 말씀해주세요.
 
-답변을 작성하는 데 참고한 참고 문헌이 있다면, 제목과 출처를 빠뜨리지 않고 꼭 넣어주십시오. 참고 문헌의 스타일은 아래와 같은 번호가 없는 IEEE 스타일입니다. 
+답변을 작성하는 데 참고한 참고 문헌이 있다면, 제목과 출처를 빠뜨리지 않고 꼭 넣어주십시오. 논문에 제공된 것과 정확히 같은 참고문헌을 포함해야 합니다. 참고 문헌의 스타일은 아래와 같은 번호가 없는 IEEE 스타일입니다.
 
 참고 문헌 예시:
 A. Author, B. Author, and C. Author, "Title of the paper," in Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), Year"""
@@ -32,9 +32,9 @@ A. Author, B. Author, and C. Author, "Title of the paper," in Proceedings of the
     
 "Related Works": {
     "Related Works":
-"""제공된 논문의 Related Work 부분을 면밀히 검토하여, 논문에서 다루고 있는 Task 혹은 Method 와 밀접한 연관이 있는 핵심 연구들을 소개해주실 수 있나요? 각 핵심 연구들을 논문에서 나눈 분류에 따라 분류해주십시오. 모든 답변은 논문을 기반으로 작성되어야만 합니다. 거짓으로 답변하지 말고 모르면 모른다고 답변해주세요.
+"""제공된 논문의 Related Work 부분을 면밀히 검토하여, 논문에서 다루고 있는 Task 혹은 Method 와 밀접한 연관이 있는 핵심 연구들을 소개해주실 수 있나요? 각 핵심 연구들을 논문에서 나눈 분류에 따라 분류해주십시오. 모든 답변은 논문을 기반으로 작성되어야만 합니다. 거짓으로 답변하지 말고 모르면 모른다고 답변해주세요. 답변에서 논문에 제공된 것과 정확히 같은 참고문헌을 포함해야 합니다.
         
-답변을 작성하는 데 참고한 참고 문헌이 있다면, 제목과 출처를 빠뜨리지 않고 꼭 넣어주십시오. 참고 문헌의 스타일은 아래와 같은 번호가 없는 IEEE 스타일입니다. 
+답변을 작성하는 데 참고한 참고 문헌이 있다면, 제목과 출처를 빠뜨리지 않고 꼭 넣어주십시오. 논문에 제공된 것과 정확히 같은 참고문헌을 포함해야 합니다. 참고 문헌의 스타일은 아래와 같은 번호가 없는 IEEE 스타일입니다.
 
 참고 문헌 예시:  
 A. Author, B. Author, and C. Author, "Title of the paper," in Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), Year""",
@@ -42,7 +42,7 @@ A. Author, B. Author, and C. Author, "Title of the paper," in Proceedings of the
     "Preliminaries": 
 """제공된 논문을 면밀히 검토하여, 방법론(Method) 을 완전히 이해하기 위해 꼭 알아두어야 할 중요한 참고 자료나 선행 개념을 알려주시겠어요? 이러한 참고 자료나 개념을 간단하고 이해하기 쉽게 설명해 주시면 대단히 감사하겠습니다. 설명에 필요한 수식을 작성해주세요.
         
-답변을 작성하는 데 참고한 참고 문헌이 있다면, 제목과 출처를 빠뜨리지 않고 꼭 넣어주십시오. 참고 문헌의 스타일은 아래와 같은 번호가 없는 IEEE 스타일입니다. 
+답변을 작성하는 데 참고한 참고 문헌이 있다면, 제목과 출처를 빠뜨리지 않고 꼭 넣어주십시오. 논문에 제공된 것과 정확히 같은 참고문헌을 포함해야 합니다. 참고 문헌의 스타일은 아래와 같은 번호가 없는 IEEE 스타일입니다.
 
 참고 문헌 예시:  
 A. Author, B. Author, and C. Author, "Title of the paper," in Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), Year
@@ -51,7 +51,7 @@ A. Author, B. Author, and C. Author, "Title of the paper," in Proceedings of the
     "Baseline": 
 """제공된 논문을 면밀히 검토하여, 논문에서 설명하고 있는 방법론의 기반이 되는 Baseline model 은 무엇인지, 논문의 Baseline model은 어떤 구조 혹은 논문을 참고했는지 상세하고 풍부하게 알려주시면 대단히 감사하겠습니다. Baseline이 없다면 없다고 말씀해주세요.
         
-답변을 작성하는 데 참고한 참고 문헌이 있다면, 제목과 출처를 빠뜨리지 않고 꼭 넣어주십시오. 참고 문헌의 스타일은 아래와 같은 번호가 없는 IEEE 스타일입니다. 
+답변을 작성하는 데 참고한 참고 문헌이 있다면, 제목과 출처를 빠뜨리지 않고 꼭 넣어주십시오. 논문에 제공된 것과 정확히 같은 참고문헌을 포함해야 합니다. 참고 문헌의 스타일은 아래와 같은 번호가 없는 IEEE 스타일입니다.
 
 참고 문헌 예시:  
 A. Author, B. Author, and C. Author, "Title of the paper," in Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), Year""",
@@ -79,7 +79,7 @@ A. Author, B. Author, and C. Author, "Title of the paper," in Proceedings of the
     "Datasets": 
 """제공된 논문의 실험 결과 및 해석 부분을 면밀히 검토하여, 이 논문에서 사용된 모든 데이터셋에 대한 종합적이고 상세한 목록을 제공해 주실 수 있을까요? 각 데이터셋의 특징과 역할을 구체적으로 설명해 주시면 매우 감사하겠습니다. 데이터셋의 특징으로는 어떠한 데이터를 모았고 그 양은 얼마나 되는지 등이 있으며 데이터셋의 역할에는 훈련(Training) 목적, 양적 평가, 응용(Application) 등이 있습니다.
 
-답변을 작성하는 데 참고한 참고 문헌이 있다면, 제목과 출처를 빠뜨리지 않고 꼭 넣어주십시오. 참고 문헌의 스타일은 아래와 같은 번호가 없는 IEEE 스타일입니다. 
+답변을 작성하는 데 참고한 참고 문헌이 있다면, 제목과 출처를 빠뜨리지 않고 꼭 넣어주십시오. 논문에 제공된 것과 정확히 같은 참고문헌을 포함해야 합니다. 참고 문헌의 스타일은 아래와 같은 번호가 없는 IEEE 스타일입니다.
 
 참고 문헌 예시:  
 A. Author, B. Author, and C. Author, "Title of the paper," in Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), Year""",
@@ -90,7 +90,7 @@ A. Author, B. Author, and C. Author, "Title of the paper," in Proceedings of the
     "Quantitative Metrics":         
 """제공된 논문의 실험 결과 및 해석 부분을 면밀히 검토하여, 이 논문에서 사용된 구체적인 양적 지표 (quantitative metric) 들에 대해 수식 및 해석 방법등을 알려주십시오.
 
-답변을 작성하는 데 참고한 참고 문헌이 있다면, 제목과 출처를 빠뜨리지 않고 꼭 넣어주십시오. 참고 문헌의 스타일은 아래와 같은 번호가 없는 IEEE 스타일입니다. 
+답변을 작성하는 데 참고한 참고 문헌이 있다면, 제목과 출처를 빠뜨리지 않고 꼭 넣어주십시오. 논문에 제공된 것과 정확히 같은 참고문헌을 포함해야 합니다. 참고 문헌의 스타일은 아래와 같은 번호가 없는 IEEE 스타일입니다.
 
 참고 문헌 예시:  
 A. Author, B. Author, and C. Author, "Title of the paper," in Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), Year""",
